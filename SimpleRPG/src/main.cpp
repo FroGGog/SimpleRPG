@@ -1,66 +1,48 @@
 #include <iostream>
-#include <vector>
-#include <conio.h>
+#include <chrono>
 
 #include "Headers/Room.h"
+#include "Headers/Player.h"
+
+const double FPS{ 0.05 };
+
+//Update screen time calculation
+bool TimeUpdate(std::chrono::system_clock::time_point t_start) {
+
+	std::chrono::duration<float> UPDTime{ std::chrono::system_clock::now() - t_start };
+
+	return UPDTime.count() > ::FPS;
+
+}
+
+class Monster {
 
 
-class Player {
 
-public:
-	short x{}, y{};
-	short saved_x{}, saved_y{};
-	char PlayerChar{ 'P' };
-
-	Player(short _x = 1, short _y = 1) {
-		this->x = _x;
-		this->y = _y;
-	}
-
-	bool Move() {
-        if (_kbhit())//check if player pressed any buttons 
-        {
-			saved_y = y;
-			saved_x = x;
-            switch (_getch())
-            {
-			case 'a':	
-				y -= 1;
-				return true;
-			case 'd':
-				y += 1;
-				return true;
-			case 'w':
-				x -= 1;
-				return true;
-			case 's':
-				x += 1;
-				return true;
-			case 'q':
-				return false;
-            default:
-                break;
-            }
-        }
-		return false;
-	}
 
 };
 
 
 
 int main() {
+
+	auto t_start{ std::chrono::system_clock::now() };
 	
-	CurrentRoom Room{10, 10};
+	CurrentRoom Room{10, 25};
 	Player player{};
+	//Changes room cell on pos x,y with given char
 	Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
+	Room.PrintRoom();
 	while (true) {
-		if (player.Move()) {
-			system("cls");
-			Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
-			Room.ChangeRoomCell(player.saved_x, player.saved_y, ' ');
-			Room.ChangeRoomCell(2, 2, 'D');
-			Room.PrintRoom();
+		//if it's time to update we can move and do stuff
+		if (TimeUpdate(t_start)) {
+			if (player.Move()) {
+				system("cls");
+				t_start = std::chrono::system_clock::now();
+				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
+				Room.ChangeRoomCell(player.saved_x, player.saved_y, ' ');
+				Room.PrintRoom();
+			}
 		}
 	}
 	
