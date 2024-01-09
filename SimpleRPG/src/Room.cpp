@@ -8,6 +8,7 @@ CurrentRoom::CurrentRoom(short _rows, short _columns) {
 		Room.assign(rows, std::vector<char>(columns, ' '));
 	}
 
+
 void CurrentRoom::ResizeRoom(short _rows, short _columns) {
 	this->rows = _rows;
 	this->columns = _columns;
@@ -15,6 +16,7 @@ void CurrentRoom::ResizeRoom(short _rows, short _columns) {
 	Room.assign(rows, std::vector<char>(columns, ' '));
 
 }
+
 
 void CurrentRoom::PrintRoom() {
 	for (short i{ 0 }; i < rows; i++) {
@@ -32,6 +34,19 @@ void CurrentRoom::PrintRoom() {
 	std::cout << std::endl;
 }
 
+
 void CurrentRoom::ChangeRoomCell(short x, short y, char ch) {
 	Room[x][y] = ch;
+}
+
+
+bool CurrentRoom::StartBattle(short p_x, short p_y) {
+
+	if (Room[p_x][p_y] == 'M') {
+		return true;
+	}
+	else {
+		return false;
+	}
+
 }

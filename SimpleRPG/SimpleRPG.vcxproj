@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Monster.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Headers\Monster.h" />
     <ClInclude Include="src\Headers\Player.h" />
     <ClInclude Include="src\Headers\Room.h" />
   </ItemGroup>
