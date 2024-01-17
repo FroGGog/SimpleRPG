@@ -1,4 +1,4 @@
-#include "Headers/Room.h"
+﻿#include "Headers/Room.h"
 #include "Headers/Player.h"
 #include <iostream>
 
@@ -54,7 +54,7 @@ void CurrentRoom::GetEnemiesPos()
 
 		if (Room[pos_x][pos_y] == ' ') {
 			CurrentRoom::ChangeRoomCell(pos_x, pos_y, 'E');
-			Monster temp_enemy{ "Goba", 2, 50, 1 };
+			Monster temp_enemy{ "Snake", 2, 50, 1 };
 			temp_enemy.SetPos(pos_x, pos_y);
 			CurrentRoom::EnemiesInRoom.push_back(temp_enemy);
 			this->c_enemies--;
@@ -64,10 +64,6 @@ void CurrentRoom::GetEnemiesPos()
 
 }
 
-void CurrentRoom::GetDoorsPos()
-{
-
-}
 
 
 void CurrentRoom::CreateRoom()
@@ -80,7 +76,6 @@ void CurrentRoom::CreateRoom()
 	}
 
 	CurrentRoom::GetEnemiesPos();
-	CurrentRoom::GetDoorsPos();
 
 }
 

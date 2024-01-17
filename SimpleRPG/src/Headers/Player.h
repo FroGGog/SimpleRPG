@@ -12,7 +12,7 @@ public:
 
 	Player(short _x = 1, short _y = 1);
 
-	bool Move(short rows, short columns);
+	short Move(short rows, short columns);
 
 	void Attack(Monster& enemy);
 
@@ -25,6 +25,8 @@ public:
 	void AddExp(double _exp);
 
 	void LevelUp();
+
+	bool TeleportToNewRoom();
 
 private:
 

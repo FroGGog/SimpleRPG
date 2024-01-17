@@ -1,4 +1,4 @@
-#include <chrono>
+﻿#include <chrono>
 #include <iostream>
 #include <ctime>
 
@@ -24,8 +24,12 @@ bool Battle(Player& player, Monster& enemy) {
 	while (!player.Death() && !enemy.Death()) {
 		choice = player.BattleOptions();
 		system("cls");
-		if (choice == '1') {
+		switch (choice)
+		{
+		case '1':
 			player.Attack(enemy);
+		default:
+			break;
 		}
 		player.TakeDamage(enemy.GetName(), enemy.GetDamage());
 	}
@@ -35,7 +39,7 @@ bool Battle(Player& player, Monster& enemy) {
 	}
 	else if (enemy.Death()) {
 		std::cout << "\nYou won! You got " << enemy.GetExp() << " xp\n";
-		std::cout << "Press any button to continue...\n";
+		std::cout << "Press enter to continue...\n";
 		player.AddExp(enemy.GetExp());
 		std::cin.ignore();
 		std::cin.get();
@@ -54,15 +58,16 @@ int main() {
 	CurrentRoom Room{};
 	Room.CreateRoom();
 	Player player{};
-	Monster goblin{"Goblin", 25, 100, 1};
 	//Changes room cell on pos x,y with given char
 	Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 	Room.PrintRoom();
+	short action{};
 	while (true) {
 		//if it's time to update we can move and do stuff
 		if (TimeUpdate(t_start)) {
-
-			if (player.Move(Room.rows, Room.columns)) {
+			action = player.Move(Room.rows, Room.columns);
+			switch (action){
+			case 1:
 				if (Room.GetCell(player.x, player.y) == 'E') {
 					system("cls");
 					short monster_index = Room.SearchEnemy(player);
@@ -70,13 +75,27 @@ int main() {
 						Room.EnemiesInRoom.erase(Room.EnemiesInRoom.begin() + monster_index);
 					}
 					player.LevelUp();
-				}				
+				}
 				system("cls");
 				Room.Info();
 				t_start = std::chrono::system_clock::now();
 				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 				Room.ChangeRoomCell(player.saved_x, player.saved_y, ' ');
 				Room.PrintRoom();
+				break;
+			case 2:
+				player.x = 1;
+				player.y = 1;
+				Room.CreateRoom();
+				system("cls");
+				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
+				Room.PrintRoom();
+				break;
+			case -1:
+				std::cout << "\nThank's for playing! Your progress is saved!\n";
+				return 0;
+			default:
+				break;
 			}
 		}
 	}

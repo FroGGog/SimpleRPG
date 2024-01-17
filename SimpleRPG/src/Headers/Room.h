@@ -38,7 +38,5 @@ private:
 	void GetChestPos();
 
 	void GetEnemiesPos();
-	 
-	void GetDoorsPos();
 
 };

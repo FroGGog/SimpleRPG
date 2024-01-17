@@ -10,7 +10,7 @@ Player::Player(short _x, short _y) {
 }
 
 
-bool Player::Move(short rows, short columns) {
+short Player::Move(short rows, short columns) {
 	if (_kbhit())//check if player pressed any buttons 
 	{
 		saved_y = y;
@@ -21,32 +21,34 @@ bool Player::Move(short rows, short columns) {
 			y -= 1;
 			if (y < 1) {
 				y++;
-				return false;
+				return 0;
 			}
-			return true;
+			return 1;
 		case 'd':
 			y += 1;
 			if (y > columns - 2) {
 				y--;
-				return false;
+				return 0;
 			}
-			return true;
+			return 1;
 		case 'w':
 			x -= 1;
 			if (x < 1) {
 				x++;
-				return false;
+				return 0;
 			}
-			return true;
+			return 1;
 		case 's':
 			x += 1;
 			if (x > rows - 2) {
 				x--;
-				return false;
+				return 0;
 			}
-			return true;
+			return 1;
+		case 'e':
+			return 2;
 		case 'q':
-			return false;
+			return -1;
 		default:
 			break;
 		}
@@ -105,6 +107,8 @@ void Player::LevelUp()
 	}
 
 }
+
+
 
 
 
