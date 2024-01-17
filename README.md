@@ -8,10 +8,16 @@ Here some functionalties
 Use "WASD" to control player(letter 'P' on console). 
 Change global var "FPS" in code - to speed|slow game  
 The main idea of game is endless dungeon grind. Enter any possible door and try your best in fights with monsters. 
-I will add magic attacks, shops, player inventory and basic player stats and abilities soon.  
+I will add magic attacks, shops, player inventory and basic  player stats and abilities soon.  
 
 ## Updates
-UPD v1.0.0  
+UPD v1.1
+* Added room generation mechanics
+* Fixed enemies battle mechanic
+* Added room borders
+* Added chests and enemies
+
+UPD v1.0  
 * Added room creation class and functions.
 * Added player. Player movement mechanics.
 * Added enemy.
