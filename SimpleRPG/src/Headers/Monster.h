@@ -19,7 +19,9 @@ public:
 
 	double GetExp();
 
+	void SetPos(short _pos_x, short _pos_y);
 
+	short pos_x{}, pos_y{};
 
 private:
 	std::string name{};

@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "Headers/Player.h"
-#include "Headers/Monster.h"
 
 
 Player::Player(short _x, short _y) {
@@ -11,7 +10,7 @@ Player::Player(short _x, short _y) {
 }
 
 
-bool Player::Move() {
+bool Player::Move(short rows, short columns) {
 	if (_kbhit())//check if player pressed any buttons 
 	{
 		saved_y = y;
@@ -20,15 +19,31 @@ bool Player::Move() {
 		{
 		case 'a':
 			y -= 1;
+			if (y < 1) {
+				y++;
+				return false;
+			}
 			return true;
 		case 'd':
 			y += 1;
+			if (y > columns - 2) {
+				y--;
+				return false;
+			}
 			return true;
 		case 'w':
 			x -= 1;
+			if (x < 1) {
+				x++;
+				return false;
+			}
 			return true;
 		case 's':
 			x += 1;
+			if (x > rows - 2) {
+				x--;
+				return false;
+			}
 			return true;
 		case 'q':
 			return false;

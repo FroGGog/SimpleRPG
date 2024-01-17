@@ -17,7 +17,7 @@ Monster::Monster(std::string _name, short _lvl, int _hp, int _damage) {
 
 void Monster::TakeDamage(int _hp) {
 	this->hp -= _hp;
-	std::cout << "You deal " << _hp << " damage to " + this->name << ". Now he got " << this->hp << " hp\n";
+	std::cout << "You deal " << _hp << " damage to " + this->name << ". Now he got " << this->hp << " hp\n\n";
 }
 
 
@@ -41,4 +41,12 @@ std::string Monster::GetName() {
 double Monster::GetExp()
 {
 	return this->gainExp;
+}
+
+
+void Monster::SetPos(short _pos_x, short _pos_y)
+{
+	this->pos_x = _pos_x;
+	this->pos_y = _pos_y;
+
 }

@@ -12,7 +12,7 @@ public:
 
 	Player(short _x = 1, short _y = 1);
 
-	bool Move();
+	bool Move(short rows, short columns);
 
 	void Attack(Monster& enemy);
 

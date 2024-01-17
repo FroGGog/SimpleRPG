@@ -1,23 +1,44 @@
 #pragma once
 #include <vector>
+#include "Monster.h"
+#include "Player.h"
 
 class CurrentRoom {
 
 public:
 
-	CurrentRoom(short _rows, short _columns);
-
-	void ResizeRoom(short _rows, short _columns);
+	CurrentRoom();
 
 	void PrintRoom();
 
+	void CreateRoom();
+
+	char GetCell(short x, short y);
+
 	void ChangeRoomCell(short x, short y, char ch);
 
-	bool StartBattle(short p_x, short p_y);
+	short SearchEnemy(Player &player);
 
-private:
+	void Info();
+
+	std::vector<Monster> EnemiesInRoom;
+
 	short rows, columns;
 
+
+private:
+	short c_enemies{ 0 }, c_chest{ 0 }, c_door{ 0 };
+
 	std::vector<std::vector<char>> Room;
+
+	void ObjectsNumGen();
+
+	void ResizeRoom();
+
+	void GetChestPos();
+
+	void GetEnemiesPos();
+	 
+	void GetDoorsPos();
 
 };
