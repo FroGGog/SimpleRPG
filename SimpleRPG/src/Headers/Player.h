@@ -1,5 +1,8 @@
 #pragma once
 #include "Monster.h"
+#include <vector>
+#include <map>
+#include <string>
 
 class Player {
 
@@ -26,11 +29,22 @@ public:
 
 	void LevelUp();
 
+	void AddHp(short _hp);
+
+	void UpdateStats();
+
+	void LevelUpStats();
+
 	void PInfo();
+
+	std::map<std::string, int> pStats{
+		{"STR", 1}, {"DEX", 1}, {"INT", 1}
+	};
 
 private:
 
-	int damage{ 50 }, hp{ 100 }, lvl{ 1 }, first_levelEXP{ 100 };
+	int damage{ 25 }, hp{ 100 }, lvl{ 1 }, first_levelEXP{ 100 }, maxHP{ 100 };
+	int AddDefence{ 0 }, AddAttack{}, defence{ 1 };
 	double exp{ 25 }, lup_exp{100}, exp_ratio{ 0.2 };
 	
  

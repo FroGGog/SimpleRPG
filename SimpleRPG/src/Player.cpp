@@ -108,6 +108,26 @@ void Player::LevelUp()
 
 }
 
+void LeleUpStats() {
+
+
+}
+
+
+void Player::AddHp(short _hp)
+{
+	this->hp += _hp;
+	if (this->hp > this->maxHP) {
+		this->hp = maxHP;
+	}
+}
+
+void Player::UpdateStats()
+{
+	this->damage = this->damage + this->AddAttack;
+	this->defence = this->defence + this->AddDefence;
+}
+
 void Player::PInfo()
 {
 	std::cout << "Player - lvl : " << this->lvl << " exp : " << this->exp << " lvl_up : " << this->lup_exp << '\n';

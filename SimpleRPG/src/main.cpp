@@ -7,6 +7,7 @@
 #include "Headers/Room.h"
 #include "Headers/Player.h"
 #include "Headers/Monster.h"
+#include "Headers/Item.h"
 
 const double FPS{ 0.05 };
 
@@ -43,7 +44,7 @@ bool Battle(Player& player, Monster& enemy) {
 	}
 	if (player.Death()) {
 		std::cout << "\nX_X You dead X_X\n";
-		return true;
+		return false;
 	}
 	else if (enemy.Death()) {
 		std::cout << "\nYou won! You got " << enemy.GetExp() << " xp\n";
@@ -51,6 +52,7 @@ bool Battle(Player& player, Monster& enemy) {
 		player.AddExp(enemy.GetExp());
 		std::cin.ignore();
 		std::cin.get();
+		return true;
 	}
 }
 
@@ -72,9 +74,13 @@ int main() {
 	srand(time(0));//random seed
 	
 	CurrentRoom Room{};
-	Room.CreateRoom();
 	Player player{};
+	HealPotion potions{ 1, 25, 50 };
+	EquippableItem GoldenArmor{ "Golden armor", 0, 50};
+
+
 	//Changes room cell on pos x,y with given char
+	Room.CreateRoom();
 	Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 	Room.PrintRoom();
 
