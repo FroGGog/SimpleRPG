@@ -7,7 +7,7 @@ class Monster {
 public:
 	void printInfo();
 
-	Monster(std::string _name = "None", short _lvl = 0, int _hp = 0, int damage = 0);
+	Monster(std::string _name = "None", short _lvl = 0, int _hp = 0, int damage = 0, int armor = 0);
 
 	void TakeDamage(int _hp);
 
@@ -26,7 +26,7 @@ public:
 private:
 	std::string name{};
 	short lvl{};
-	int hp{}, damage{};
-	double gainExp{25};//change randomly in dependence of level
+	int hp{}, damage{}, armor{};
+	double gainExp{};//change randomly in dependence of level
 
 };

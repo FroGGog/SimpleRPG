@@ -23,7 +23,7 @@ public:
 
 	std::vector<Monster> EnemiesInRoom;
 
-	short rows, columns;
+	short rows, columns, roomDeep{ 0 };
 
 
 private:

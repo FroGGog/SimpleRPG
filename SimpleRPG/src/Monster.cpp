@@ -7,11 +7,13 @@ void Monster::printInfo() {
 }
 
 
-Monster::Monster(std::string _name, short _lvl, int _hp, int _damage) {
+Monster::Monster(std::string _name, short _lvl, int _hp, int _damage, int _armor) {
 	this->name = _name;
 	this->lvl = _lvl;
 	this->hp = _hp;
 	this->damage = _damage;
+	this->armor = _armor;
+	this->gainExp = this->damage + rand() % (this->lvl * 10);
 }
 
 

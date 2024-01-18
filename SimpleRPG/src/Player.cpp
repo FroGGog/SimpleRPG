@@ -45,8 +45,6 @@ short Player::Move(short rows, short columns) {
 				return 0;
 			}
 			return 1;
-		case '2':
-			return 2;
 		case 'q':
 			return -1;
 		case '3':
@@ -65,6 +63,7 @@ void Player::Attack(Monster &enemy) {
 
 
 void Player::TakeDamage(std::string _name, int _damage) {
+	_damage = _damage - rand() % 5;
 	double dmgMult = _damage / (_damage + this->defence);
 	int damageToDeal = _damage * dmgMult;
 	this->hp -= damageToDeal;
@@ -120,7 +119,7 @@ void Player::LevelUpStats()
 {
 	this->lvl_points = 3;
 	char choice{};
-	std::cout << "Choose wich stat to upgrade (1 - STR, 2 - DEX, 3 - INT) :\n";
+	std::cout << "Choose wich stat to upgrade (1 - STR, 2 - DEX, 3 - VIT) :\n";
 	while (lvl_points > 0) {
 		std::cin >> choice;
 		switch (choice) {
@@ -132,12 +131,12 @@ void Player::LevelUpStats()
 		case '2':
 			this->pStats["DEX"]++;
 			this->lvl_points--;
-			std::cout << "DEX is now : " << this->pStats["STR"] << ".Points left -" << lvl_points << '\n';
+			std::cout << "DEX is now : " << this->pStats["DEX"] << ".Points left -" << lvl_points << '\n';
 			break;
 		case '3':
-			this->pStats["INT"]++;
+			this->pStats["VIT"]++;
 			this->lvl_points--;
-			std::cout << "INT is now : " << this->pStats["STR"] << ".Points left -" << lvl_points << '\n';
+			std::cout << "VIT is now : " << this->pStats["VIT"] << ".Points left -" << lvl_points << '\n';
 			break;
 		default:
 			break;
@@ -157,6 +156,7 @@ void Player::UpdateStats()
 {
 	this->damage = this->damage + this->AddAttack + this->pStats["STR"];
 	this->defence = this->defence + this->AddDefence + this->pStats["DEX"] * 0.5;
+	this->maxHP = this->maxHP + this->pStats["VIT"] * 3;
 }
 
 
@@ -165,7 +165,8 @@ void Player::PInfo()
 {
 	std::cout << "Player\nLvl : " << this->lvl << "\nExp : " << this->exp << "\nExp to Levelup : " << this->lup_exp << '\n';
 	std::cout << "Damage - " << this->damage << "\tDefence - " << this->defence << '\n';
-	std::cout << "STR - " << this->pStats["STR"] << "  DEX - " << this->pStats["DEX"] << "  INT - " << this->pStats["INT"] << '\n';
+	std::cout << "HP - " << this->hp << " / " << this->maxHP << '\n';
+	std::cout << "STR - " << this->pStats["STR"] << "  DEX - " << this->pStats["DEX"] << "  VIT - " << this->pStats["VIT"] << '\n';
 	std::cout << "Press any button to continue...\n";
 	std::cin.get();
 }

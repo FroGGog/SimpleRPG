@@ -103,7 +103,7 @@ int main() {
 					player.LevelUp();
 				}
 				system("cls");
-				//Room.Info();
+				std::cout << "Floor - " << Room.roomDeep << '\n';
 				t_start = std::chrono::system_clock::now();
 				if (Room.EnemiesInRoom.size() == 0) {
 					action = 2;
