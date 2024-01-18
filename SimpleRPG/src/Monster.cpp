@@ -17,6 +17,9 @@ Monster::Monster(std::string _name, short _lvl, int _hp, int _damage) {
 
 void Monster::TakeDamage(int _hp) {
 	this->hp -= _hp;
+	if (this->hp < 0) {
+		this->hp = 0;
+	}
 	std::cout << "You deal " << _hp << " damage to " + this->name << ". Now he got " << this->hp << " hp\n\n";
 }
 

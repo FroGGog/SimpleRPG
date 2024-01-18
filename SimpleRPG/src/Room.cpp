@@ -54,7 +54,7 @@ void CurrentRoom::GetEnemiesPos()
 
 		if (Room[pos_x][pos_y] == ' ') {
 			CurrentRoom::ChangeRoomCell(pos_x, pos_y, 'E');
-			Monster temp_enemy{ "Snake", 2, 50, 1 };
+			Monster temp_enemy{ "Snake", 2, 50, 15 };
 			temp_enemy.SetPos(pos_x, pos_y);
 			CurrentRoom::EnemiesInRoom.push_back(temp_enemy);
 			this->c_enemies--;

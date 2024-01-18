@@ -24,8 +24,9 @@ class EquippableItem {
 
 public:
 	std::string name{};
-	short price, gainAttack, gainDef;
+	short gainAttack, gainDef;
 	bool equiped{ false };
+	double price;
 	std::map<std::string, unsigned> requirements;
 
 	EquippableItem(std::string _name, short _GAttack, short _GDef);

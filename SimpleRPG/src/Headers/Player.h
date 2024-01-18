@@ -44,8 +44,9 @@ public:
 private:
 
 	int damage{ 25 }, hp{ 100 }, lvl{ 1 }, first_levelEXP{ 100 }, maxHP{ 100 };
-	int AddDefence{ 0 }, AddAttack{}, defence{ 1 };
-	double exp{ 25 }, lup_exp{100}, exp_ratio{ 0.2 };
+	int AddDefence{ 0 }, AddAttack{};
+	double exp{ 25 }, lup_exp{100}, exp_ratio{ 0.2 }, defence{ 1 };
+	short lvl_points{ 0 };
 	
  
 };

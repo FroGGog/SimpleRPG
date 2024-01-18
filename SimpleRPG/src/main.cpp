@@ -104,8 +104,11 @@ int main() {
 				}
 				system("cls");
 				//Room.Info();
-				player.PInfo();
 				t_start = std::chrono::system_clock::now();
+				if (Room.EnemiesInRoom.size() == 0) {
+					action = 2;
+					break;
+				}
 				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 				Room.ChangeRoomCell(player.saved_x, player.saved_y, ' ');
 				Room.PrintRoom();
@@ -118,6 +121,10 @@ int main() {
 				system("cls");
 				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 				Room.PrintRoom();
+				break;
+			case 3://show player stats
+				system("cls");
+				player.PInfo();
 				break;
 			case -1://exit
 				std::cout << "\nThank's for playing! Your progress is saved!\n";
