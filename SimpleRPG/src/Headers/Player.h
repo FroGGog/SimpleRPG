@@ -26,12 +26,12 @@ public:
 
 	void LevelUp();
 
-	bool TeleportToNewRoom();
+	void PInfo();
 
 private:
 
 	int damage{ 50 }, hp{ 100 }, lvl{ 1 }, first_levelEXP{ 100 };
-	double exp{ 98 }, lup_exp{100}, exp_ratio{ 0.2 };
+	double exp{ 25 }, lup_exp{100}, exp_ratio{ 0.2 };
 	
  
 };

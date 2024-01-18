@@ -95,17 +95,22 @@ void Player::LevelUp()
 {
 	if (this->lvl == 1 && this->exp >= this->lup_exp) {
 		this->lvl++;
-		this->lup_exp = this->first_levelEXP * (this->lvl--) + this->first_levelEXP * (this->lvl--) * this->exp_ratio;
-		std::cout << "\nCongratulation, you have raised your level to the 2!\nPress any button to continue...\n";
+		this->lup_exp = this->first_levelEXP * (this->lvl - 1) + this->first_levelEXP * (this->lvl - 1) * this->exp_ratio;
+		std::cout << "\nCongratulation, you have raised your level to 2!\nPress enter to continue...\n";
 		std::cin.get();
 	}
 	else if(this->exp >= this->lup_exp) {
 		this->lvl++;
-		this->lup_exp = this->first_levelEXP * (this->lvl--) + this->first_levelEXP * (this->lvl--) * this->exp_ratio;
-		std::cout << "\nCongratulation, you have raised your level to the " << this->lvl << "!Press any button to continue...\n";
+		this->lup_exp = this->first_levelEXP * (this->lvl - 1) + this->first_levelEXP * (this->lvl - 1) * this->exp_ratio;
+		std::cout << "\nCongratulation, you have raised your level to " << this->lvl << "!Press enter to continue...\n";
 		std::cin.get();
 	}
 
+}
+
+void Player::PInfo()
+{
+	std::cout << "Player - lvl : " << this->lvl << " exp : " << this->exp << " lvl_up : " << this->lup_exp << '\n';
 }
 
 

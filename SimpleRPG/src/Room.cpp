@@ -49,8 +49,8 @@ void CurrentRoom::GetEnemiesPos()
 	short pos_x{}, pos_y{};
 	while (this->c_enemies > 0) {
 
-		pos_x = rand() % (this->rows - 1) + 1;
-		pos_y = rand() % (this->columns - 1) + 1;
+		pos_x = rand() % (this->rows - 2) + 1;
+		pos_y = rand() % (this->columns - 2) + 1;
 
 		if (Room[pos_x][pos_y] == ' ') {
 			CurrentRoom::ChangeRoomCell(pos_x, pos_y, 'E');
