@@ -11,6 +11,15 @@ The main idea of game is endless dungeon grind. Enter any possible door and try 
 I will add magic attacks, shops, player inventory and basic  player stats and abilities soon.  
 
 ## Updates
+UPD v1.2
+* Bug fixes
+* Added normal XP gain mechanics
+* Added Level scaling enemies
+* Added player stats(STR,DEX,VIT)
+* Added floor change mechanincs
+* Added player stats upgrades
+* Added attack\armor stats for player
+
 UPD v1.1
 * Added room generation mechanics
 * Fixed enemies battle mechanic
