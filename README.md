@@ -5,12 +5,19 @@ Using only STL. Trying to improve my C++ skils.
 Here some functionalties  
 
 ## Game
-Use "WASD" to control player(letter 'P' on console). 
-Change global var "FPS" in code - to speed|slow game  
-The main idea of game is endless dungeon grind. Enter any possible door and try your best in fights with monsters. 
-I will add magic attacks, shops, player inventory and basic  player stats and abilities soon.  
+Use "WASD" to control player(letter 'P' on screen). 
+Change global var "FPS" in code - to speed|slow game.  
+
+The main idea of game is endless dungeon grind.Clear room to generate new one. Level up. Get better weapons and armors. Try your best.  
+I will add magic attacks, shops, player inventory and basic player stats and abilities soon. All game settings will be in additional .txt file.    
 
 ## Updates
+UPD v1.3
+* Bug fixes
+* Added inventory system
+* Added player armor body parts
+* Deleted heal potion class
+
 UPD v1.2
 * Bug fixes
 * Added normal XP gain mechanics
