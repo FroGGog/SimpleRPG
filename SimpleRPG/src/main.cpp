@@ -5,8 +5,6 @@
 #include <string>
 
 #include "Headers/Room.h"
-#include "Headers/Player.h"
-#include "Headers/Monster.h"
 #include "Headers/Item.h"
 
 const double FPS{ 0.05 };
@@ -75,9 +73,12 @@ int main() {
 	
 	CurrentRoom Room{};
 	Player player{};
-	HealPotion potions{ 1, 25, 50 };
 	EquippableItem GoldenArmor{ "Golden armor", 0, 50};
-
+	EquippableItem DiamondArmor{ "Diamond armor", 0, 70 };
+	EquippableItem GoldenHelmet{ "Golden helmet", 0, 15 };
+	player.EQInv.push_back(GoldenArmor);
+	player.EQInv.push_back(DiamondArmor);
+	player.EQInv.push_back(GoldenHelmet);
 
 	//Changes room cell on pos x,y with given char
 	Room.CreateRoom();
@@ -89,8 +90,8 @@ int main() {
 		//if it's time to update we can move and do stuff
 		if (TimeUpdate(t_start)) {
 			action = player.Move(Room.rows, Room.columns);
-			if (Room.EnemiesInRoom.size() == 0) {
-				action = 2;
+			if (Room.EnemiesInRoom.size() == 0) {//restart room if there arwe no enemies
+				action = 9;
 			}
 			switch (action){
 			case 1:// move or battle
@@ -106,14 +107,14 @@ int main() {
 				std::cout << "Floor - " << Room.roomDeep << '\n';
 				t_start = std::chrono::system_clock::now();
 				if (Room.EnemiesInRoom.size() == 0) {
-					action = 2;
+					action = 9;//restart room if there arwe no enemies
 					break;
 				}
 				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 				Room.ChangeRoomCell(player.saved_x, player.saved_y, ' ');
 				Room.PrintRoom();
 				break;
-			case 2://create new room
+			case 9://create new room
 				LoadingScreen();
 				player.x = 1;
 				player.y = 1;
@@ -123,8 +124,10 @@ int main() {
 				Room.PrintRoom();
 				break;
 			case 3://show player stats
-				system("cls");
 				player.PInfo();
+				break;
+			case 2:
+				player.EQInvManager(); //Inventory using mech
 				break;
 			case -1://exit
 				std::cout << "\nThank's for playing! Your progress is saved!\n";

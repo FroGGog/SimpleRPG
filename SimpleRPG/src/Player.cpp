@@ -45,10 +45,14 @@ short Player::Move(short rows, short columns) {
 				return 0;
 			}
 			return 1;
-		case 'q':
+		case 'q'://quit from game
 			return -1;
-		case '3':
+		case '9':
+			return 9;
+		case '3'://show player stats
 			return 3;
+		case '2':
+			return 2;
 		default:
 			break;
 		}
@@ -154,6 +158,12 @@ void Player::AddHp(short _hp)
 
 void Player::UpdateStats()
 {
+	for (short i{ 0 }; i < EQInv.size(); i++) {
+		if (EQInv[i].equiped) {
+			this->AddAttack += EQInv[i].gainAttack;
+			this->AddDefence += EQInv[i].gainDef;
+		}
+	}
 	this->damage = this->damage + this->AddAttack + this->pStats["STR"];
 	this->defence = this->defence + this->AddDefence + this->pStats["DEX"] * 0.5;
 	this->maxHP = this->maxHP + this->pStats["VIT"] * 3;
@@ -163,15 +173,86 @@ void Player::UpdateStats()
 
 void Player::PInfo()
 {
-	std::cout << "Player\nLvl : " << this->lvl << "\nExp : " << this->exp << "\nExp to Levelup : " << this->lup_exp << '\n';
+	system("cls");
+	std::cout << "Player\nLvl : " << this->lvl << "\nExp : " << this->exp << " / " << this->lup_exp << '\n';
 	std::cout << "Damage - " << this->damage << "\tDefence - " << this->defence << '\n';
 	std::cout << "HP - " << this->hp << " / " << this->maxHP << '\n';
 	std::cout << "STR - " << this->pStats["STR"] << "  DEX - " << this->pStats["DEX"] << "  VIT - " << this->pStats["VIT"] << '\n';
 	std::cout << "Press any button to continue...\n";
-	std::cin.get();
+}
+
+void Player::FirstPrint() {
+	system("cls");
+	std::cout << "This is your invontory. (+ - means that item is equiped. Press '2' again to exit)\n";
+	std::cout << "Use w/s to go throught inventory. Press E - to equip/un item\n\n";
+	for (short i{ 0 }; i < this->EQInv.size(); i++) {
+		if (i == 0) {
+			std::cout << ">";
+		}
+		std::cout << i + 1 << ". " << EQInv[i].name << ".\t(attack | def bonus) = " << EQInv[i].gainAttack << " | " << EQInv[i].gainDef;
+		std::cout << "\tprice : " << EQInv[i].price << " gold";
+		if (EQInv[i].equiped) {
+			std::cout << " (E)\n";
+			continue;
+		}
+		std::cout << '\n';
+	}
 }
 
 
+void Player::EQInvManager()
+{
+	EquippableItem* ptr = &EQInv[0];
+	bool inInv{ true };
+	FirstPrint();
+	while (inInv) {
+		if (_kbhit()) {
+			switch (_getch()) {
+			case 'w':
+				if (ptr->name == EQInv[0].name) {
+					ptr = &EQInv[0];
+					break;
+				}
+				ptr--;
+				break;
+			case 's':
+				if (ptr->name == EQInv[EQInv.size() - 1].name) {
+					ptr = &EQInv[EQInv.size() - 1];
+					break;
+				}
+				ptr++;
+				break;
+			case '2':
+				inInv = false;
+				Player::UpdateStats();
+				std::cout << "Print any button to continue.\n";
+				return;
+			case 'e':
+				if (ptr->equiped) {
+					ptr->equiped = false;
+					break;
+				}
+				ptr->equiped = true;
+				break;
+			default:
+				break;
+			}
+			system("cls");
+			std::cout << "This is your invontory. (+ - means that item is equiped. Press '2' again to exit)\n";
+			std::cout << "Use w/s to go throught inventory. Press E - to equip/un item\n\n";
+			for (short i{ 0 }; i < this->EQInv.size(); i++) {
+				if (&EQInv[i] == ptr) {
+					std::cout << ">";
+				}	
+				std::cout << i + 1 << ". " << EQInv[i].name << ".\t(attack | def bonus) = " << EQInv[i].gainAttack << " | " << EQInv[i].gainDef;
+				std::cout << "\tprice : " << EQInv[i].price << " gold";
+				if (EQInv[i].equiped) {
+					std::cout << " (E)\n";
+					continue;
+				}
+				std::cout << '\n';
+			}
+		}
+	}
 
-
-
+}
