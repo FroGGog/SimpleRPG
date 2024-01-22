@@ -73,13 +73,15 @@ int main() {
 	
 	CurrentRoom Room{};
 	Player player{};
-	EquippableItem GoldenArmor{ "Golden armor", 0, 50};
-	EquippableItem DiamondArmor{ "Diamond armor", 0, 70 };
+
 	EquippableItem GoldenHelmet{ "Golden helmet", 0, 15 };
-	GoldenHelmet.SetReq(1, 2);
-	player.EQInv.push_back(GoldenArmor);
-	player.EQInv.push_back(DiamondArmor);
+	EquippableItem WoodenHelmet{ "Wooden helmet", 0, 5 };
+	GoldenHelmet.SetReq(1, 1);
+	WoodenHelmet.SetReq(0, 1);
+	GoldenHelmet.bodyPart = "Head";
+	WoodenHelmet.bodyPart = "Head";
 	player.EQInv.push_back(GoldenHelmet);
+	player.EQInv.push_back(WoodenHelmet);
 
 	//Changes room cell on pos x,y with given char
 	Room.CreateRoom();

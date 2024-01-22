@@ -67,5 +67,7 @@ private:
 
 	bool CheckItemFitStats(EquippableItem* ptr);
 
+	bool CheckItemOnBodyPart(EquippableItem* ptr);
+
  
 };

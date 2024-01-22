@@ -176,6 +176,17 @@ bool Player::CheckItemFitStats(EquippableItem* ptr)
 	return false;
 }
 
+bool Player::CheckItemOnBodyPart(EquippableItem *ptr)
+{
+	if (EqpItems[ptr->bodyPart]) {
+		return false;
+	}
+	else {
+		return true;
+	}
+	return false;
+}
+
 void Player::PInfo()
 {
 	system("cls");
@@ -235,15 +246,21 @@ void Player::EQInvManager()
 			case 'e':
 				if (ptr->equiped) {
 					ptr->equiped = false;
+					EqpItems[ptr->bodyPart] = false;//set false to body part of player
 					this->AddAttack -= ptr->gainAttack;
 					this->AddDefence -= ptr->gainDef;
 					break;
 				}
 				if (Player::CheckItemFitStats(ptr)) {
-					ptr->equiped = true;
-					this->AddAttack += ptr->gainAttack;
-					this->AddDefence += ptr->gainDef;
+					if (Player::CheckItemOnBodyPart(ptr)) {
+						ptr->equiped = true;
+						EqpItems[ptr->bodyPart] = true;
+						this->AddAttack += ptr->gainAttack;
+						this->AddDefence += ptr->gainDef;
+						break;
+					}
 					break;
+					
 				}
 				break;
 			default:

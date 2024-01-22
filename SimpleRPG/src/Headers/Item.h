@@ -7,11 +7,11 @@
 class EquippableItem {
 
 public:
-	std::string name{};
+	std::string name{}, bodyPart{};
 	short gainAttack, gainDef;
 	bool equiped{ false };
 	double price;
-	std::map<std::string, unsigned> requ{
+	std::map<std::string, int> requ{
 		{"STR", 0}, {"DEX", 0}
 	};
 
