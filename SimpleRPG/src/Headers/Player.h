@@ -43,6 +43,7 @@ private:
 	int AddDefence{ 0 }, AddAttack{};
 	double exp{ 25 }, lup_exp{100}, exp_ratio{ 0.2 }, defence{ 1 };
 	short lvl_points{ 0 };
+	const int basicDamage{ 25 }, basicDefence{ 1 };
 
 	std::map<std::string, bool> EqpItems{
 

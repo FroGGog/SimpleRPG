@@ -159,14 +159,8 @@ void Player::AddHp(short _hp)
 
 void Player::UpdateStats()
 {
-	for (short i{ 0 }; i < EQInv.size(); i++) {
-		if (EQInv[i].equiped) {
-			this->AddAttack += EQInv[i].gainAttack;
-			this->AddDefence += EQInv[i].gainDef;
-		}
-	}
-	this->damage = this->damage + this->AddAttack + this->pStats["STR"];
-	this->defence = this->defence + this->AddDefence + this->pStats["DEX"] * 0.5;
+	this->damage = this->basicDamage + this->AddAttack + this->pStats["STR"];
+	this->defence = this->basicDefence + this->AddDefence + this->pStats["DEX"] * 0.5;
 	this->maxHP = this->maxHP + this->pStats["VIT"] * 3;
 }
 
@@ -241,10 +235,14 @@ void Player::EQInvManager()
 			case 'e':
 				if (ptr->equiped) {
 					ptr->equiped = false;
+					this->AddAttack -= ptr->gainAttack;
+					this->AddDefence -= ptr->gainDef;
 					break;
 				}
 				if (Player::CheckItemFitStats(ptr)) {
 					ptr->equiped = true;
+					this->AddAttack += ptr->gainAttack;
+					this->AddDefence += ptr->gainDef;
 					break;
 				}
 				break;
