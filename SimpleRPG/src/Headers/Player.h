@@ -64,5 +64,7 @@ private:
 
 	void LevelUpStats();
 
+	bool CheckItemFitStats(EquippableItem* ptr);
+
  
 };

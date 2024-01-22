@@ -148,6 +148,7 @@ void Player::LevelUpStats()
 	}
 }
 
+
 void Player::AddHp(short _hp)
 {
 	this->hp += _hp;
@@ -170,6 +171,16 @@ void Player::UpdateStats()
 }
 
 
+bool Player::CheckItemFitStats(EquippableItem* ptr)
+{
+	if (pStats["STR"] >= ptr->requ["STR"]) {
+		if (pStats["DEX"] >= ptr->requ["DEX"]) {
+			return true;
+		}
+		return false;
+	}
+	return false;
+}
 
 void Player::PInfo()
 {
@@ -189,7 +200,8 @@ void Player::FirstPrint() {
 		if (i == 0) {
 			std::cout << ">";
 		}
-		std::cout << i + 1 << ". " << EQInv[i].name << ".\t(attack | def bonus) = " << EQInv[i].gainAttack << " | " << EQInv[i].gainDef;
+		std::cout << i + 1 << ". " << EQInv[i].name << ".  (A | D bonus) = " << EQInv[i].gainAttack << " | " << EQInv[i].gainDef;
+		std::cout << "  Req : STR = " << EQInv[i].requ["STR"] << " DEX = " << EQInv[i].requ["DEX"] << "  ";
 		std::cout << "\tprice : " << EQInv[i].price << " gold";
 		if (EQInv[i].equiped) {
 			std::cout << " (E)\n";
@@ -198,7 +210,6 @@ void Player::FirstPrint() {
 		std::cout << '\n';
 	}
 }
-
 
 void Player::EQInvManager()
 {
@@ -232,7 +243,10 @@ void Player::EQInvManager()
 					ptr->equiped = false;
 					break;
 				}
-				ptr->equiped = true;
+				if (Player::CheckItemFitStats(ptr)) {
+					ptr->equiped = true;
+					break;
+				}
 				break;
 			default:
 				break;
@@ -243,8 +257,9 @@ void Player::EQInvManager()
 			for (short i{ 0 }; i < this->EQInv.size(); i++) {
 				if (&EQInv[i] == ptr) {
 					std::cout << ">";
-				}	
-				std::cout << i + 1 << ". " << EQInv[i].name << ".\t(attack | def bonus) = " << EQInv[i].gainAttack << " | " << EQInv[i].gainDef;
+				}
+				std::cout << i + 1 << ". " << EQInv[i].name << ".  (A | D bonus) = " << EQInv[i].gainAttack << " | " << EQInv[i].gainDef;
+				std::cout << "  Req : STR = " << EQInv[i].requ["STR"] << " DEX = " << EQInv[i].requ["DEX"] << "  ";
 				std::cout << "\tprice : " << EQInv[i].price << " gold";
 				if (EQInv[i].equiped) {
 					std::cout << " (E)\n";

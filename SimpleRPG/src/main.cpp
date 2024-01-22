@@ -76,6 +76,7 @@ int main() {
 	EquippableItem GoldenArmor{ "Golden armor", 0, 50};
 	EquippableItem DiamondArmor{ "Diamond armor", 0, 70 };
 	EquippableItem GoldenHelmet{ "Golden helmet", 0, 15 };
+	GoldenHelmet.SetReq(1, 2);
 	player.EQInv.push_back(GoldenArmor);
 	player.EQInv.push_back(DiamondArmor);
 	player.EQInv.push_back(GoldenHelmet);

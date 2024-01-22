@@ -9,9 +9,8 @@ EquippableItem::EquippableItem(std::string _name, short _GAttack, short _GDef) {
 	this->price = gainAttack + gainDef * 12.5;
 }
 
-void EquippableItem::SetReq(short _STR, short _DEX, short _INT) {
-	requirements["STR"] = _STR;
-	requirements["DEX"] = _DEX;
-	requirements["INT"] = _INT;
+void EquippableItem::SetReq(short _STR, short _DEX) {
+	requ["STR"] = _STR;
+	requ["DEX"] = _DEX;
 }
 
