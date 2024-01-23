@@ -45,9 +45,9 @@ bool Battle(Player& player, Monster& enemy) {
 		return false;
 	}
 	else if (enemy.Death()) {
-		std::cout << "\nYou won! You got " << enemy.GetExp() << " xp\n";
+		std::cout << "\nYou won! You got " << enemy.GetExp() << " xp and " << enemy.GetGMoney() << " gold coins\n";
 		std::cout << "Press enter to continue...\n";
-		player.AddExp(enemy.GetExp());
+		player.BattleEnd(enemy.GetExp(), enemy.GetGMoney());
 		std::cin.ignore();
 		std::cin.get();
 		return true;

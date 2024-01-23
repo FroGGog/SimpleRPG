@@ -14,6 +14,7 @@ Monster::Monster(std::string _name, short _lvl, int _hp, int _damage, int _armor
 	this->damage = _damage;
 	this->armor = _armor;
 	this->gainExp = this->damage + rand() % (this->lvl * 10);
+	this->gainMoney = this->gainExp / 10;
 }
 
 
@@ -46,6 +47,11 @@ std::string Monster::GetName() {
 double Monster::GetExp()
 {
 	return this->gainExp;
+}
+
+double Monster::GetGMoney()
+{
+	return this->gainMoney;
 }
 
 

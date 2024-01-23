@@ -103,7 +103,7 @@ void CurrentRoom::ObjectsNumGen()
 
 	this->c_door = rand() % 4 + 1;
 
-	this->c_enemies = rand() % 5 + 1;
+	this->c_enemies = rand() % 7 + 3;
 
 }
 

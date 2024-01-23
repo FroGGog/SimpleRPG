@@ -93,9 +93,10 @@ bool Player::Death() {
 
 }
 
-void Player::AddExp(double _exp)
+void Player::BattleEnd(double _exp, double _money)
 {
 	this->exp += _exp;
+	this->money += _money;
 }
 
 void Player::LevelUp()
@@ -194,6 +195,7 @@ void Player::PInfo()
 	std::cout << "Damage - " << this->damage << "\tDefence - " << this->defence << '\n';
 	std::cout << "HP - " << this->hp << " / " << this->maxHP << '\n';
 	std::cout << "STR - " << this->pStats["STR"] << "  DEX - " << this->pStats["DEX"] << "  VIT - " << this->pStats["VIT"] << '\n';
+	std::cout << "You got " << this->money << " gold coins.\n";
 	std::cout << "Press any button to continue...\n";
 }
 

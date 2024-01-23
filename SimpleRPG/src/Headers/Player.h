@@ -27,7 +27,7 @@ public:
 
 	bool Death();
 
-	void AddExp(double _exp);
+	void BattleEnd(double _exp, double _money);
 
 	void LevelUp();
 
@@ -39,11 +39,11 @@ public:
 
 private:
 
-	int damage{ 25 }, hp{ 500 }, lvl{ 1 }, first_levelEXP{ 100 }, maxHP{ 1000 };
-	int AddDefence{ 0 }, AddAttack{};
-	double exp{ 25 }, lup_exp{100}, exp_ratio{ 0.2 }, defence{ 1 };
+	int damage{ 15 }, hp{ 100 }, lvl{ 1 }, first_levelEXP{ 100 }, maxHP{ 100 };
+	int AddDefence{ 0 }, AddAttack{ 0 };
+	double exp{ 0 }, lup_exp{ 100 }, exp_ratio{ 0.2 }, defence{ 1 }, money{0};
 	short lvl_points{ 0 };
-	const int basicDamage{ 25 }, basicDefence{ 1 };
+	const int basicDamage{ damage }, basicDefence{ 1 };
 
 	std::map<std::string, bool> EqpItems{
 
