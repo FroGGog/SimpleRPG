@@ -12,6 +12,14 @@ The main idea of game is endless dungeon grind.Clear room to generate new one. L
 I will add magic attacks, shops, player inventory and basic player stats and abilities soon. All game settings will be in additional .txt file.    
 
 ## Updates
+UPD v1.4
+* Bug fixes
+* Added Hub
+* Added Home in hub, where you can restore hp
+* Balanced hp/damage of enemies
+* Added normal death system
+* Got ideas how to create random items and enemies
+
 UPD v1.3
 * Bug fixes
 * Added inventory system
