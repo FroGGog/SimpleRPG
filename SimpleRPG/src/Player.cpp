@@ -69,7 +69,6 @@ void Player::Attack(Monster &enemy) {
 
 
 void Player::TakeDamage(std::string _name, int _damage) {
-	_damage = _damage - rand() % 5;
 	double dmgMult = _damage / (_damage + this->defence);
 	int damageToDeal = _damage * dmgMult;
 	this->hp -= damageToDeal;
@@ -78,7 +77,7 @@ void Player::TakeDamage(std::string _name, int _damage) {
 
 
 char Player::BattleOptions() {
-
+	std::cout << "\nYou got " << this->hp << '\\' << this->maxHP << " hp";
 	char choice{};
 	std::cout << "\nYou can : \n 1. Melee attack\n 2. Use magic\n 3. Use item from inventory\nType from 1-3\n";
 	std::cin >> choice;
@@ -201,9 +200,24 @@ void Player::PInfo()
 	std::cout << "Press any button to continue...\n";
 }
 
-int Player::GetHp()
+int Player::GetMaxHp()
 {
-	return this->hp;
+	return this->maxHP;
+}
+
+void Player::SetHp(int _hp)
+{
+	this->hp = _hp;
+}
+
+double Player::GetMoney()
+{
+	return this->money;
+}
+
+void Player::AddHp(int _hp)
+{
+	this->hp += _hp;
 }
 
 void Player::FirstPrint() {

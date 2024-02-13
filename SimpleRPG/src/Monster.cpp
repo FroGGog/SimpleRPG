@@ -2,11 +2,6 @@
 #include "Headers/Monster.h"
 
 
-void Monster::printInfo() {
-	std::cout << "You met " + name + '\n' << "His level is " << lvl << '\n' << "He got " << hp << " hp\n";
-}
-
-
 Monster::Monster(std::string _name, short _lvl, int _hp, int _damage, int _armor) {
 	this->name = _name;
 	this->lvl = _lvl;
@@ -15,6 +10,11 @@ Monster::Monster(std::string _name, short _lvl, int _hp, int _damage, int _armor
 	this->armor = _armor;
 	this->gainExp = this->damage + rand() % (this->lvl * 10);
 	this->gainMoney = this->gainExp / 10;
+}
+
+void Monster::printInfo() {
+	std::cout << "You met " + name + '\n' << "His level is " << lvl << '\n' << "He got " << hp << " hp";
+	std::cout << "\nAttack : " << this->damage << " defence : " << this->armor << '\n';
 }
 
 

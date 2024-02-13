@@ -55,8 +55,8 @@ void CurrentRoom::GetEnemiesPos()
 		if (Room[pos_x][pos_y] == ' ') {
 			CurrentRoom::ChangeRoomCell(pos_x, pos_y, '\x04');
 			short enemyLevel = rand() % (this->roomDeep) + 1;
-			short enemyHp = (enemyLevel * 25) - (rand() % (enemyLevel * 25 / 10) + 1);
-			short enemyDamage = (enemyHp / enemyLevel) - (rand() % (int)25 / enemyLevel);
+			short enemyHp = enemyLevel * 25 - (rand() % (enemyLevel * 10 - 7 + 1) + 7);
+			short enemyDamage = enemyLevel * (rand() % (enemyLevel * 7 - 7 + 1) + 7);
 			short enemyArmor = enemyLevel + rand() % enemyLevel + 1;
 			Monster temp_enemy{ "Snake", enemyLevel, enemyHp, enemyDamage, 0};
 			temp_enemy.SetPos(pos_x, pos_y);
@@ -71,7 +71,6 @@ void CurrentRoom::GetEnemiesPos()
 
 void CurrentRoom::CreateRoom()
 {
-	this->roomDeep++;
 	CurrentRoom::ResizeRoom();
 	CurrentRoom::ObjectsNumGen();
 

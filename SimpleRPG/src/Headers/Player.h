@@ -14,6 +14,8 @@ public:
 	short x{}, y{};
 	short saved_x{}, saved_y{};
 	char PlayerChar{ '\x1E' };
+	bool canSleep{ true };
+	int totalEnemyKills{0};
 
 	Player(short _x = 1, short _y = 1);
 
@@ -35,7 +37,13 @@ public:
 
 	void PInfo();
 
-	int GetHp();
+	int GetMaxHp();
+
+	void SetHp(int _hp);
+
+	double GetMoney();
+
+	void AddHp(int _hp);
 
 	std::vector<EquippableItem> EQInv;
 

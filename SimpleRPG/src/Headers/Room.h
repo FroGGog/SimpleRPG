@@ -19,11 +19,10 @@ public:
 
 	short SearchEnemy(Player &player);
 
-	void Info();
 
 	std::vector<Monster> EnemiesInRoom;
 
-	short rows, columns, roomDeep{ 0 };
+	short rows, columns, roomDeep{ 1 };
 
 
 private:

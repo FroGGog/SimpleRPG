@@ -9,6 +9,7 @@
 #include "Headers/Hub.h"
 
 const double FPS{ 0.05 };
+bool WASDEAD{ false };
 
 //Update screen time calculation
 bool TimeUpdate(std::chrono::system_clock::time_point t_start) {
@@ -54,8 +55,11 @@ bool Battle(Player& player, Monster& enemy) {
 	}
 	if (player.Death()) {
 		system("cls");
-		std::cout << "\nYou dead.Some good people finded you and borrow back to hub.\n";
+		std::cout << "\nYou dead.Some good people finded you and borrowed back to hub.\n";
+		Sleep(2000);
 		LoadingScreen("Getting back to hub");
+		player.SetHp(0);
+		player.AddHp((player.GetMaxHp() / 2));
 		return false;
 	}
 	else if (enemy.Death()) {
@@ -111,20 +115,23 @@ int main() {
 					short monster_index = Room.SearchEnemy(player);
 					if (Battle(player, Room.EnemiesInRoom[monster_index])) {
 						Room.EnemiesInRoom.erase(Room.EnemiesInRoom.begin() + monster_index);
+						player.totalEnemyKills++;
 					}
 					else {
 						action = 4;
 						inHub = true;
 						Room.roomDeep = 1;
+						::WASDEAD = true;
 						break;
 					}
 					player.LevelUp();
 				}
 				system("cls");
-				std::cout << "Floor - " << Room.roomDeep - 1 << '\n';
+				std::cout << "Floor - " << Room.roomDeep << '\n';
 				t_start = std::chrono::system_clock::now();
 				if (Room.EnemiesInRoom.size() == 0) {
 					action = 9;//restart room if there arwe no enemies
+					Room.roomDeep++;
 					break;
 				}
 				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
@@ -143,10 +150,15 @@ int main() {
 				player.EQInvManager(); //Inventory using mech
 				break;
 			case 4:
-				mainHub.HubManager();
-				std::cout << "Press any button to enter dungeon";
+				system("cls");
+				if (mainHub.HubManager(player) && !(::WASDEAD)) {
+					inHub = false;
+					break;
+				}
+				::WASDEAD = false;
 				action = 9;
 				inHub = false;
+				
 			case 9://create new room
 				LoadingScreen("Loading new room");
 				player.x = 1;
