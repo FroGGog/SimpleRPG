@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Hub.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Monster.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Headers\Hub.h" />
     <ClInclude Include="src\Headers\Item.h" />
     <ClInclude Include="src\Headers\Monster.h" />
     <ClInclude Include="src\Headers\Player.h" />

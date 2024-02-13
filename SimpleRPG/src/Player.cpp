@@ -47,17 +47,19 @@ short Player::Move(short rows, short columns) {
 			return 1;
 		case 'q'://quit from game
 			return -1;
-		case '9':
+		case '9': //create new room
 			return 9;
 		case '3'://show player stats
 			return 3;
-		case '2':
+		case '2': // show player's inventory
 			return 2;
+		case '4':
+			return 4;
 		default:
 			break;
 		}
 	}
-	return false;
+	return 0;
 }
 
 
@@ -197,6 +199,11 @@ void Player::PInfo()
 	std::cout << "STR - " << this->pStats["STR"] << "  DEX - " << this->pStats["DEX"] << "  VIT - " << this->pStats["VIT"] << '\n';
 	std::cout << "You got " << this->money << " gold coins.\n";
 	std::cout << "Press any button to continue...\n";
+}
+
+int Player::GetHp()
+{
+	return this->hp;
 }
 
 void Player::FirstPrint() {

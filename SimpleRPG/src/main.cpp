@@ -6,6 +6,7 @@
 
 #include "Headers/Room.h"
 #include "Headers/Item.h"
+#include "Headers/Hub.h"
 
 const double FPS{ 0.05 };
 
@@ -15,6 +16,17 @@ bool TimeUpdate(std::chrono::system_clock::time_point t_start) {
 	std::chrono::duration<float> UPDTime{ std::chrono::system_clock::now() - t_start };
 
 	return UPDTime.count() > ::FPS;
+
+}
+
+
+void LoadingScreen(std::string message) {
+	system("cls");
+	for (short i{ 1 }; i < 5; i++) {
+		std::cout << message << std::string(i, '.');
+		Sleep(500);
+		system("cls");
+	}
 
 }
 
@@ -41,7 +53,9 @@ bool Battle(Player& player, Monster& enemy) {
 		
 	}
 	if (player.Death()) {
-		std::cout << "\nX_X You dead X_X\n";
+		system("cls");
+		std::cout << "\nYou dead.Some good people finded you and borrow back to hub.\n";
+		LoadingScreen("Getting back to hub");
 		return false;
 	}
 	else if (enemy.Death()) {
@@ -54,16 +68,6 @@ bool Battle(Player& player, Monster& enemy) {
 	}
 }
 
-void LoadingScreen() {
-	system("cls");
-	for (short i{ 1 }; i < 5; i++) {
-		std::cout << "Loading new room" << std::string(i, '.');
-		Sleep(500);
-		system("cls");
-	}
-	
-}
-
 
 int main() {
 
@@ -73,15 +77,17 @@ int main() {
 	
 	CurrentRoom Room{};
 	Player player{};
+	Hub mainHub{};
+	bool inHub{ false };
 
-	EquippableItem GoldenHelmet{ "Golden helmet", 0, 15 };
-	EquippableItem WoodenHelmet{ "Wooden helmet", 0, 5 };
-	GoldenHelmet.SetReq(1, 1);
-	WoodenHelmet.SetReq(0, 1);
-	GoldenHelmet.bodyPart = "Head";
-	WoodenHelmet.bodyPart = "Head";
-	player.EQInv.push_back(GoldenHelmet);
-	player.EQInv.push_back(WoodenHelmet);
+	//EquippableItem GoldenHelmet{ "Golden helmet", 0, 15 };
+	//EquippableItem WoodenHelmet{ "Wooden helmet", 0, 5 };
+	//GoldenHelmet.SetReq(1, 1);
+	//WoodenHelmet.SetReq(0, 1);
+	//GoldenHelmet.bodyPart = "Head";
+	//WoodenHelmet.bodyPart = "Head";
+	//player.EQInv.push_back(GoldenHelmet);
+	//player.EQInv.push_back(WoodenHelmet);
 
 	//Changes room cell on pos x,y with given char
 	Room.CreateRoom();
@@ -92,22 +98,30 @@ int main() {
 	while (true) {
 		//if it's time to update we can move and do stuff
 		if (TimeUpdate(t_start)) {
-			action = player.Move(Room.rows, Room.columns);
+			if (!inHub) {
+				action = player.Move(Room.rows, Room.columns);
+			}
 			if (Room.EnemiesInRoom.size() == 0) {//restart room if there arwe no enemies
 				action = 9;
 			}
 			switch (action){
 			case 1:// move or battle
-				if (Room.GetCell(player.x, player.y) == 'E') {
+				if (Room.GetCell(player.x, player.y) == '\x04') {
 					system("cls");
 					short monster_index = Room.SearchEnemy(player);
 					if (Battle(player, Room.EnemiesInRoom[monster_index])) {
 						Room.EnemiesInRoom.erase(Room.EnemiesInRoom.begin() + monster_index);
 					}
+					else {
+						action = 4;
+						inHub = true;
+						Room.roomDeep = 1;
+						break;
+					}
 					player.LevelUp();
 				}
 				system("cls");
-				std::cout << "Floor - " << Room.roomDeep << '\n';
+				std::cout << "Floor - " << Room.roomDeep - 1 << '\n';
 				t_start = std::chrono::system_clock::now();
 				if (Room.EnemiesInRoom.size() == 0) {
 					action = 9;//restart room if there arwe no enemies
@@ -117,20 +131,30 @@ int main() {
 				Room.ChangeRoomCell(player.saved_x, player.saved_y, ' ');
 				Room.PrintRoom();
 				break;
+			case 3://show player stats
+				player.PInfo();
+				break;
+			case 2://show inventory
+				if (player.EQInv.size() == 0) {
+					system("cls");
+					std::cout << "Your inventory is empty!\n";					
+					break;
+				}
+				player.EQInvManager(); //Inventory using mech
+				break;
+			case 4:
+				mainHub.HubManager();
+				std::cout << "Press any button to enter dungeon";
+				action = 9;
+				inHub = false;
 			case 9://create new room
-				LoadingScreen();
+				LoadingScreen("Loading new room");
 				player.x = 1;
 				player.y = 1;
 				Room.CreateRoom();
 				system("cls");
 				Room.ChangeRoomCell(player.x, player.y, player.PlayerChar);
 				Room.PrintRoom();
-				break;
-			case 3://show player stats
-				player.PInfo();
-				break;
-			case 2:
-				player.EQInvManager(); //Inventory using mech
 				break;
 			case -1://exit
 				std::cout << "\nThank's for playing! Your progress is saved!\n";

@@ -13,7 +13,7 @@ public:
 
 	short x{}, y{};
 	short saved_x{}, saved_y{};
-	char PlayerChar{ 'P' };
+	char PlayerChar{ '\x1E' };
 
 	Player(short _x = 1, short _y = 1);
 
@@ -34,6 +34,8 @@ public:
 	void EQInvManager();
 
 	void PInfo();
+
+	int GetHp();
 
 	std::vector<EquippableItem> EQInv;
 

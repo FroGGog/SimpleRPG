@@ -9,7 +9,6 @@ CurrentRoom::CurrentRoom() {
 
 
 void CurrentRoom::ResizeRoom() {
-	this->roomDeep++;
 	this->rows = rand() % 15 + 5;
 	this->columns = rand() % 20 + 5;
 	Room.clear();
@@ -22,10 +21,10 @@ void CurrentRoom::PrintRoom() {
 	for (short i{ 0 }; i < this->rows; i++) {
 		for (short j{ 0 }; j < this->columns; j++) {
 			if (i == 0 || i == this->rows - 1) {
-				Room[i][j] = '-';
+				Room[i][j] = '\xDB';
 			}
 			else if (j == 0 || j == this->columns - 1) {
-				Room[i][j] = '|';
+				Room[i][j] = '\xDB';
 			}
 			std::cout << Room[i][j];
 		}
@@ -40,7 +39,7 @@ void CurrentRoom::GetChestPos()
 	short pos_x{}, pos_y{};
 	pos_x = rand() % (this->rows - 1) + 1;
 	pos_y = rand() % (this->columns - 1) + 1;
-	CurrentRoom::ChangeRoomCell(pos_x, pos_y, 'D');
+	CurrentRoom::ChangeRoomCell(pos_x, pos_y, '\x7F');
 }
 
 
@@ -54,7 +53,7 @@ void CurrentRoom::GetEnemiesPos()
 		pos_y = rand() % (this->columns - 2) + 1;
 
 		if (Room[pos_x][pos_y] == ' ') {
-			CurrentRoom::ChangeRoomCell(pos_x, pos_y, 'E');
+			CurrentRoom::ChangeRoomCell(pos_x, pos_y, '\x04');
 			short enemyLevel = rand() % (this->roomDeep) + 1;
 			short enemyHp = (enemyLevel * 25) - (rand() % (enemyLevel * 25 / 10) + 1);
 			short enemyDamage = (enemyHp / enemyLevel) - (rand() % (int)25 / enemyLevel);
@@ -70,10 +69,9 @@ void CurrentRoom::GetEnemiesPos()
 }
 
 
-
 void CurrentRoom::CreateRoom()
 {
-	
+	this->roomDeep++;
 	CurrentRoom::ResizeRoom();
 	CurrentRoom::ObjectsNumGen();
 
@@ -121,8 +119,3 @@ short CurrentRoom::SearchEnemy(Player& player) {
 	}
 }
 
-void CurrentRoom::Info()
-{
-	std::cout << "Chest : " << this->c_chest << " enemies : " << this->EnemiesInRoom.size() << " doors : " << this->c_door << '\n';
-
-}
