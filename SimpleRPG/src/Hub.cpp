@@ -1,7 +1,7 @@
 #include "Headers\Hub.h"
 
 
-int Hub::Home(int maxHp,double currentMoney, bool rest)
+int Hub::Home(Player& player, bool rest)
 {
 	system("cls");
 	std::cout << "You are in your house. You can 1 - sleep, 2 - upgrade your house\n";
@@ -11,22 +11,29 @@ int Hub::Home(int maxHp,double currentMoney, bool rest)
 		case '1':
 		{
 			if (rest) {
-				int restoreHp{ maxHp / 4 };
+				int restoreHp{ 0 };
+				if (HomeLvl == 4) {
+					restoreHp = player.GetMaxHp();
+				}
+				else {
+					restoreHp = player.GetMaxHp() / (4 - HomeLvl);
+				}
 				std::cout << "You sleep well...And restored " << restoreHp << " hp!\n";
 				return restoreHp;
+				
 			}
 			else {
 				std::cout << "You can't rest now, go fight!\n";
 				return 0;
 			}
-			
+			break;
 		}
 		case '2':
-			Upgrade('h');
+			Upgrade('h', player.GetMoney());
 			break;
 		default:
 			break;
-	}
+		}
 	return 0;
 }
 
@@ -51,7 +58,7 @@ bool Hub::HubManager(Player& player)
 		case '1':
 		{
 			player.canSleep = CanSleep(player.totalEnemyKills);
-			int tempHp = this->Home(player.GetMaxHp(), player.GetMoney(), player.canSleep);
+			int tempHp = this->Home(player, player.canSleep);
 			player.AddHp(tempHp);
 			if (tempHp != 0) {
 				killsOnSleep = player.totalEnemyKills;
@@ -74,13 +81,23 @@ bool Hub::HubManager(Player& player)
 	HubManager(player);
 }
 
-void Hub::Upgrade(char b_type)
+void Hub::Upgrade(char b_type, double& p_money)
 {
 	switch (b_type) {
 		case 'h':
-			this->HomeLvl++;
-			this->H_cost += 100;
-			std::cout << "Home upgraded to " << this->HomeLvl << " lvl\n";
+			if (HomeLvl < 4 && p_money >= H_cost) {
+				this->HomeLvl++;
+				p_money -= H_cost;
+				this->H_cost += 100;
+				std::cout << "Home upgraded to " << this->HomeLvl << " lvl\n";
+				std::cout << "Now you can restore more HP while sleep.\n";
+			}
+			else if (p_money < H_cost) {
+				std::cout << "Not enought money!\n";
+			}
+			else {
+				std::cout << "Your house on maxed level!\n";
+			}
 			break;
 		case 's':
 			this->ShopLvl++;

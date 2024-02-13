@@ -210,7 +210,7 @@ void Player::SetHp(int _hp)
 	this->hp = _hp;
 }
 
-double Player::GetMoney()
+double& Player::GetMoney()
 {
 	return this->money;
 }

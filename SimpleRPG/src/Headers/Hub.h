@@ -7,7 +7,7 @@ class Hub {
 
 public:
 
-	int Home(int maxHp = 0, double currentMoney = 0, bool rest = true);
+	int Home(Player& player, bool rest = true);
 
 	void Shop();
 
@@ -23,6 +23,6 @@ private:
 
 	int H_cost{ 100 }, S_cost{ 100 }, B_cost{ 100 }, killsOnSleep{};
 
-	void Upgrade(char b_type);
+	void Upgrade(char b_type, double& p_money);
 	bool CanSleep(int nowKills);
 };

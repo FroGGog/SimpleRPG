@@ -41,7 +41,7 @@ public:
 
 	void SetHp(int _hp);
 
-	double GetMoney();
+	double& GetMoney();
 
 	void AddHp(int _hp);
 
@@ -51,7 +51,7 @@ private:
 
 	int damage{ 15 }, hp{ 100 }, lvl{ 1 }, first_levelEXP{ 100 }, maxHP{ 100 };
 	int AddDefence{ 0 }, AddAttack{ 0 };
-	double exp{ 0 }, lup_exp{ 100 }, exp_ratio{ 0.2 }, defence{ 1 }, money{0};
+	double exp{ 0 }, lup_exp{ 100 }, exp_ratio{ 0.2 }, defence{ 1 }, money{500.0};
 	short lvl_points{ 0 };
 	const int basicDamage{ damage }, basicDefence{ 1 };
 
